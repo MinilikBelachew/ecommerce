@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <CartProvider>
-          <TopNavBar />
+          <TopNavBar  />
           <main>{children}</main>
         </CartProvider>
       </body>
