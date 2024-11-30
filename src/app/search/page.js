@@ -1,41 +1,19 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function SearchPage() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      setLoading(true);
-      try {
-        const res = await fetch("https://fakestoreapi.com/products");
-        const allProducts = await res.json();
-        const filteredProducts = allProducts.filter((product) =>
-          product.title.toLowerCase().includes(query.toLowerCase())
-        );
-        setProducts(filteredProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    if (query) fetchProducts();
-  }, [query]);
-
-  if (loading) {
-    return (
-      <div className="container mx-auto p-6 text-center">
-        <p className="text-gray-600 text-lg">Loading...</p>
-      </div>
-    );
+async function fetchProducts(query) {
+  const res = await fetch("https://fakestoreapi.com/products");
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
   }
+  const allProducts = await res.json();
+  return allProducts.filter((product) =>
+    product.title.toLowerCase().includes(query.toLowerCase())
+  );
+}
+
+export default async function SearchPage({ searchParams }) {
+  const query = searchParams?.query || "";
+  const products = query ? await fetchProducts(query) : [];
 
   return (
     <div className="container mx-auto p-6 bg-slate-50">
