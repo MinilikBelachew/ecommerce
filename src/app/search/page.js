@@ -3,25 +3,18 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-
-export const dynamic = "force-dynamic";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!query) return;
-
     async function fetchProducts() {
       setLoading(true);
       try {
         const res = await fetch("https://fakestoreapi.com/products");
-        if (!res.ok) throw new Error("Failed to fetch products");
-
         const allProducts = await res.json();
         const filteredProducts = allProducts.filter((product) =>
           product.title.toLowerCase().includes(query.toLowerCase())
@@ -33,23 +26,13 @@ export default function SearchPage() {
         setLoading(false);
       }
     }
-
-    fetchProducts();
+    if (query) fetchProducts();
   }, [query]);
-
-  if (!query) {
-    return (
-      <div className="container mx-auto p-6 text-center">
-        <h1 className="text-3xl font-bold mb-4 text-gray-900">Search Products</h1>
-        <p className="text-gray-600">Use the search bar to find products.</p>
-      </div>
-    );
-  }
 
   if (loading) {
     return (
-      <div className="container mx-auto p-6 flex justify-center items-center h-screen">
-        <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+      <div className="container mx-auto p-6 text-center">
+        <p className="text-gray-600 text-lg">Loading...</p>
       </div>
     );
   }
@@ -69,11 +52,9 @@ export default function SearchPage() {
               href={`/products/${product.id}`}
               className="block border rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              <Image
+              <img
                 src={product.image}
                 alt={product.title}
-                width={400}
-                height={400}
                 className="w-full h-60 object-cover rounded-t-lg transition-all duration-300"
               />
               <div className="p-4">
