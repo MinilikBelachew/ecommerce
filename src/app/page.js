@@ -126,28 +126,33 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative py-16 mt-24">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        <div className="container mx-auto px-6 relative">
-          <div className="text-center">
-            <h4 className="text-3xl font-bold">
-              E-Shop<span className="bg-gradient-to-r from-violet-400 to-fuchsia-500 text-transparent bg-clip-text">.io</span>
-            </h4>
-            <p className="mt-4 text-gray-400">
-              &copy; {new Date().getFullYear()} E-Shop.io. All rights reserved.
-            </p>
-            <div className="mt-8 flex justify-center space-x-8">
-              {['facebook', 'twitter', 'instagram'].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-                  aria-label={social}
-                >
-                  <i className={`fab fa-${social} text-2xl`}></i>
-                </a>
-              ))}
+      <footer className="bg-gray-900 py-12">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-gray-400">
+            <div>
+              <h4 className="text-xl font-bold text-white mb-4">About Us</h4>
+              <p>Your premier destination for online shopping, offering quality products and exceptional service.</p>
             </div>
+            <div>
+              <h4 className="text-xl font-bold text-white mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                {categories.map((category) => (
+                  <li key={category}>
+                    <Link href={`/category/${category}`} className="hover:text-violet-400 transition-colors">
+                      {category}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-xl font-bold text-white mb-4">Contact</h4>
+              <p>Email: support@eshop.io</p>
+              <p>Phone: (555) 123-4567</p>
+            </div>
+          </div>
+          <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500">
+            <p>&copy; {new Date().getFullYear()} E-Shop.io. All rights reserved.</p>
           </div>
         </div>
       </footer>
