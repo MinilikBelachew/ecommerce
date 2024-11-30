@@ -40,7 +40,7 @@ export default function TopNavBar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {['Home', 'Products', 'Categories', 'About', 'Contact'].map((item) => (
+            {['Home', 'Products', 'Category', 'About', 'Contact'].map((item) => (
               <Link
                 key={item}
                 href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}

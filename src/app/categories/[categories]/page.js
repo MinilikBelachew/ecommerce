@@ -29,7 +29,7 @@ export default function CategoryPage() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
+      {/* <div className="bg-gray-50 py-4">
         <div className="container mx-auto px-6 flex justify-between items-center">
           <nav className="text-gray-600">
             <Link href="/" className="hover:underline">
@@ -48,7 +48,7 @@ export default function CategoryPage() {
             </button>
           </Link>
         </div>
-      </div>
+      </div> */}
 
       {/* Category Title */}
       <section className="container mx-auto px-6 py-10">
